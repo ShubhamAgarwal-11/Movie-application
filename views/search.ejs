@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Home</title>
+</head>
+<body class="bg-black text-white">
+
+    <%- include('./nav') %>
+
+    <% if(data) { %>
+        <div class="card" style="width: 18rem;">
+            <img src= <%= data.Poster %> class="card-img-top" alt="...">
+            <div class="card-body bg-dark text-white" >
+              <h5 class="card-title"><%= data.Title %></h5>
+              <p class="card-text"> <%=data.Year %> &nbsp; <%= data.Runtime %> &nbsp; ⭐<%= data.imdbRating %> <%= data.Genre %> </p>
+              <!-- <a href="/addMovie" class="btn btn-primary" value = "name">Add List</a> -->
+              <form method ="get" action="/addMovie">
+                <button class="btn btn-outline-success" name="name"  value = "<%= data.Title %>" type="submit">WatchList</button>
+              </form>
+            </div>
+          </div>
+    <% } %>
+    
+</body>
+</html>
