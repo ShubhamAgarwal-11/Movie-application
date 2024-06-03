@@ -2,52 +2,65 @@ const axios = require('axios')
 const bcrypt = require('bcrypt')
 const User = require('../models/user.model')
 const jwt = require('jsonwebtoken')
-exports.postSignup = async(req,res)=>{
-   try {
-     const {name,email,password} = req.body;
-     if(!email || !password || !name){
+const Movie = require('../models/movie.model')
+const mongoose = require('mongoose')
+
+exports.postSignup = async (req, res) => {
+  try {
+        const { name, email, password } = req.body;
+
+        if (!name || !email || !password) {
         return res.status(400).json({
             success: false,
-            message : "Please Fill all the details"
-        })
-     }
-     const existedUser = await User.findOne({email});
-     if(existedUser){
-         return res.status(401).render("signin",{
-             user : false,
-             msg : "user already exist...please login!!"
-         })
-     }
- 
-     let securePassword;
-     try {
-         securePassword = await bcrypt.hash(password,10);
-         
-     } catch (error) {
-         return res.status(500).json({
-             success : false,
-             message : "Error while hash the password."
-         })
-     }
- 
-     const user = await User.create({
-         name, email, password : securePassword 
-     })
- 
-     res.status(201).render("signin",{
-         message : "user successfully created!!",
-         user : false,
-         data: false
-     })
- 
-   } catch (error) {
+            message: "Please fill all the details"
+        });
+        }
+
+        // Check if the user already exists
+        const existedUser = await User.findOne({ email });
+        if (existedUser) {
+        return res.status(401).render("signin", {
+            user: false,
+            msg: "User already exists... please login!!"
+        });
+        }
+
+        // Hash the password
+        let securePassword;
+        try {
+        securePassword = await bcrypt.hash(password, 10);
+        } catch (error) {
         return res.status(500).json({
-            success : false,
-            message : "Error while creating new user",
-            error : error.message
-        })
-   }
-}
+            success: false,
+            message: "Error while hashing the password."
+        });
+        }
+
+        // Create a new user with the random movie IDs
+        const userObj = new User({
+        name,
+        email,
+        password: securePassword,
+        movieID: new mongoose.Types.ObjectId()
+        });
+
+        const savedUser = await userObj.save();
+        // Respond with success
+        return res.status(201).render("signin", {
+            message: "User successfully created!!",
+            user: false,
+            data: false
+        });
+
+    } catch (error) {
+        console.error('Error in postSignup:', error);
+        return res.status(500).json({
+        success: false,
+        message: "Error while creating new user",
+        error: error.message
+        });
+      }
+};
 
 exports.postLogin = async(req,res)=>{
     try {

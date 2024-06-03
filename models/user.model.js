@@ -15,8 +15,8 @@ const userSchema = new mongoose.Schema({
     },
     movieID : [{
         type : mongoose.Schema.Types.ObjectId,
-        ref : "Movie",
-        unique: true
+        ref : "Movie",    
+        unique : true
     }]
 })
 
