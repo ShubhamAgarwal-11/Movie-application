@@ -22,6 +22,22 @@ const movieSchema = new mongoose.Schema({
     },
     genre: {
         type : String
+    },
+    language: {
+        type : String,
+    },
+    director: {
+        type : String
+    },
+    actors:{
+        type : String
+    },
+    country:{
+        type : String,
+        required : true
+    },
+    plot:{
+        type : String,
     }
 })
 

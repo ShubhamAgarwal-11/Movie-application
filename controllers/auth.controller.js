@@ -82,7 +82,8 @@ exports.postLogin = async(req,res)=>{
 
         const payload = {
             id : user._id,
-            email : user.email
+            email : user.email,
+            name : user.name
         }
 
         if(await bcrypt.compare(password , user.password)){

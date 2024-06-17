@@ -86,7 +86,12 @@ exports.addMovie = async(req,res)=>{
                 year : response.data.Year,
                 rating : response.data.imdbRating,
                 time : response.data.Runtime,
-                genre : response.data.Genre
+                genre : response.data.Genre,
+                director : response.data.Director,
+                language : response.data.Language,
+                actors : response.data.Actors,
+                country : response.data.Country,
+                plot : response.data.Plot
             })
             const savedMovie = await movieObj.save()
 
@@ -142,12 +147,28 @@ exports.addMovie = async(req,res)=>{
 //     }
 // }
 
-exports.getMovieInfo = async(id)=>{
+exports.movieDetails = async(req,res)=>{
     try {
-        // console.log(id)
-        let res = await axios.get(`http://www.omdbapi.com/?apikey=df4e2019&i=${id}`)
-        return res;
+        const name = req.query.movieName;
+        const movieObj = await Movie.find({name : name});
+        let user;
+        if(!req.cookies['token']){
+            user = false;
+        }else{
+            const token = req.cookies['token'];
+            user = jwt.verify(token,process.env.SECRET_KEY);
+
+        }
+        //  console.log(movieObj)
+        return res.render('movieInfo',{
+            movie : movieObj[0],
+            user : user
+        })
+
     } catch (error) {
-        console.log('error while fecting data from api.', error.message)
+        return res.status(500).json({
+            success : false,
+            message : error.message
+        })
     }
 }

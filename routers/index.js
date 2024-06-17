@@ -16,6 +16,7 @@ router.post('/loginUser',authController.postLogin)
 router.get('/search',userController.searchMovie)
 router.get('/addMovie',auth.auth,userController.addMovie)
 router.get('/home',auth.auth,authController.home)
+router.get('/movieDetails',userController.movieDetails)
 
 // router.get("/test",userController.test)
 

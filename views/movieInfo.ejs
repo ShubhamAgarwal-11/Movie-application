@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title> <%= movie.name %> </title>
+</head>
+<body class="bg-dark text-white">
+    <%- include('./nav') %>
+    <div class="" style="padding: 2%; background-color: black; width: 74%; margin-left: 13%; margin-top: 7%;">
+        <h2>Movie: <%= movie.name %></h2>
+        <hr class="text-white">
+        <div class="d-inline-flex">
+            <div>
+                <img style="height: 270px; margin:5px; box-shadow: rgba(241, 239, 239, 0.24) 0px 3px 8px;" src="<%= movie.poster %>" alt="small image of movie">
+            </div>
+            <div class="px-4">
+                <h3><%= movie.name %> (<%= movie.year%>)</h3>
+                <i><%= movie.plot %></i>
+                 <hr>
+                <div style=" display: inline-grid; width: 60%;">
+                    <p>Genre: <%= movie.genre%></p>
+                    <p>Director: <%= movie.director%></p>
+                    <p>Actors: <%= movie.actors %></p>
+                    <p>Country: <%= movie.country %></p> 
+                </div>
+                <div style="display: inline-grid; width: auto;">
+                    <p>Duration: <%= movie.time %></p>
+                    <p>Language: <%= movie.language %></p>
+                    <p>Release: <%= movie.year %></p>
+                    <p>IMDb: <%= movie.rating %></p> 
+                </div>
+                <!-- <span class="pt-2" style="display: inline-grid; height: 60%; width: 100%;">
+                    <div >
+                        <span class="d-inline-flex">Genre: <%= movie.genre%></span>
+                        <span style="float: right;" class="d-inline-flex">Director: <%= movie.director%></span>
+                    </div>
+                    <div>
+                        <span class="d-inline-flex">Actors: <%= movie.actors %></span>
+                        <span style="float: right;" class="d-inline-flex">Country: <%= movie.country %></span>
+                    </div>
+                    <span class="d-inline-flex">Duration: <%= movie.time %></span>
+                    <span class="d-inline-flex">Language: <%= movie.language %></span>
+                    <span class="d-inline-flex">Release: <%= movie.year %></span>
+                    <span class="d-inline-flex">IMDb: <%= movie.rating %></span>
+                    
+                </span> -->
+                
+            </div>
+        </div>
+    </div>
+</body>
+</html>

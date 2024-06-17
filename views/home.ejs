@@ -7,13 +7,17 @@
     <%- include('./nav') %>
     <% if(user){ %>
         <% for(let movie of user.movieID){ %>
-            <div class="card d-inline-flex bg-secondary" style="width: 18rem;">
-                <img src= <%= movie.poster %> class="card-img-top" alt="...">
-                <div class="card-body bg-dark text-white" >
-                    <h5 class="card-title"><%= movie.name %></h5>
-                    <p class="card-text"> <%=movie.year %> &nbsp; <%= movie.time %> &nbsp; ⭐<%= movie.rating %> <%= movie.genre %> </p>
-                    </form>
-                </div>
+            <form class="d-inline-flex p-4" action="/movieDetails" method="get">
+                <button class="curson-pointer" name="movieName" value="<%= movie.name %>">
+                    <div class="card bg-secondary" style="width: 18rem;">
+                        <img src= <%= movie.poster %> style="height: 250px" class="card-img-top" alt="...">
+                        <div class="card-body bg-dark text-white" >
+                            <h5 class="card-title"><%= movie.name %></h5>
+                            <p class="card-text"> <%=movie.year %> &nbsp; <%= movie.time %> &nbsp; ⭐<%= movie.rating %> <%= movie.genre %> </p>
+                            </form>
+                        </div>
+                </button>
+            </form>
             </div>
         <% } %>
     <% }  %>
